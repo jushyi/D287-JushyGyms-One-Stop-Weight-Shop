@@ -55,7 +55,7 @@ ADDED TO  - mainscreen.html
 
     Line 89     <a th:href="@{/about}" class="btn btn-primary btn-sm mb-3">About us</a>
 
-ADDED TO - MainScreenControllerr
+ADDED TO - MainScreenControllerr.java
 
     Line 56     @GetMapping("/about")
                 public String about(Model theModel){
@@ -64,7 +64,65 @@ ADDED TO - MainScreenControllerr
 
 E.  Add a sample inventory appropriate for your chosen store to the application. You should have five parts and five products in your sample inventory and should not overwrite existing data in the database.
 
-Note: Make sure the sample inventory is added only when both the part and product lists are empty. When adding the sample inventory appropriate for the store, the inventory is stored in a set so duplicate items cannot be added to your products. When duplicate items are added, make a “multi-pack” part.
+ADDED TO - BootStrapData.java
+
+    Lines 36-76
+        if (outsourcedPartRepository.count() == 0) {
+               OutsourcedPart rubberDisk = new OutsourcedPart();
+               rubberDisk.setCompanyName("JirehSynthetics");
+               rubberDisk.setName("Rubber Disk");
+               rubberDisk.setInv(15);
+               rubberDisk.setPrice(15.0);
+               rubberDisk.setId(100L);
+               outsourcedPartRepository.save(rubberDisk);
+    
+               OutsourcedPart metalDisk = new OutsourcedPart();
+               metalDisk.setCompanyName("JAMIronWorks");
+               metalDisk.setName("Metal Disk");
+               metalDisk.setInv(15);
+               metalDisk.setPrice(15.0);
+               metalDisk.setId(100L);
+               outsourcedPartRepository.save(metalDisk);
+    
+               OutsourcedPart steelDisk = new OutsourcedPart();
+               steelDisk.setCompanyName("JAMIronWorks");
+               steelDisk.setName("Steel Disk");
+               steelDisk.setInv(15);
+               steelDisk.setPrice(30.0);
+               steelDisk.setId(100L);
+               outsourcedPartRepository.save(steelDisk);
+    
+               OutsourcedPart rubberHead = new OutsourcedPart();
+               rubberHead.setCompanyName("JirehSynthetics");
+               rubberHead.setName("Rubber Head");
+               rubberHead.setInv(30);
+               rubberHead.setPrice(20.0);
+               rubberHead.setId(100L);
+               outsourcedPartRepository.save(rubberHead);
+    
+               OutsourcedPart metalHead = new OutsourcedPart();
+               metalHead.setCompanyName("JAMIronWorks");
+               metalHead.setName("Metal Head");
+               metalHead.setInv(30);
+               metalHead.setPrice(20.0);
+               metalHead.setId(100L);
+               outsourcedPartRepository.save(metalHead);
+           }
+
+    Lines 91-102
+        if (productRepository.count() == 0) {
+            Product rubberPlate = new Product("Rubber Plate", 90.0, 15);
+            Product metalPlate = new Product("Metal Plate", 90.0, 15);
+            Product calibratedPlate = new Product("Calibrated Plate", 135.0, 15);
+            Product rubberDumbbell = new Product("Rubber Dumbbell", 100.0, 15);
+            Product metalDumbbell = new Product("Metal Dumbbell", 100.0, 15);
+            productRepository.save(rubberPlate);
+            productRepository.save(metalPlate);
+            productRepository.save(calibratedPlate);
+            productRepository.save(rubberDumbbell);
+            productRepository.save(metalDumbbell);
+        }
+
 
 F.  Add a “Buy Now” button to your product list. Your “Buy Now” button must meet each of the following parameters:
 •  The “Buy Now” button must be next to the buttons that update and delete products.
