@@ -1,7 +1,7 @@
 # WESTERN GOVERNOR UNIVERSITY 
 ## D287 – JAVA FRAMEWORKS
 
-README.md - Below will include notes that track the changes made to this project \
+README.md - Below will include notes that track the changes made to this project
 
 C.  Customize the HTML user interface for your customer’s application. The user interface should include the shop name, the product names, and the names of the parts.
 
@@ -16,8 +16,8 @@ CHANGED - mainscreen.html
     Old Line 21 <h2> Parts </h2>
     New Line 21 <h2> Rubber/Metal Plate and Dumbbell Parts </h2>
 
-    Old Line 53 <h2> Products </h2>
-    New Line 53 <h2> Rubber/Metal Plates and Dumbbells </h2>
+    Old Line 57 <h2> Products </h2>
+    New Line 57 <h2> Rubber/Metal Plates and Dumbbells </h2>
 
 D.  Add an “About” page to the application to describe your chosen customer’s company to web viewers and include navigation to and from the “About” page and the main screen.
 
@@ -53,7 +53,7 @@ CREATED - about.html
 
 ADDED TO  - mainscreen.html
 
-    Line 90     <a th:href="@{/about}" class="btn btn-primary btn-sm mb-3">About us</a>
+    Line 94     <a th:href="@{/about}" class="btn btn-primary btn-sm mb-3">About us</a>
 
 ADDED TO - MainScreenControllerr.java
 
@@ -131,7 +131,7 @@ F.  Add a “Buy Now” button to your product list. Your “Buy Now” button m
 
 ADDED TO - mainscreen.html
     
-    Line 85 <a th:href="@{/buyproduct(productID=${tempProduct.id})}" class="btn btn-primary btn-sm mb-3">Buy Now</a>
+    Line 89 <a th:href="@{/buyproduct(productID=${tempProduct.id})}" class="btn btn-primary btn-sm mb-3">Buy Now</a>
 
 CREATED - confirmationbuyproduct.html
 
@@ -206,24 +206,24 @@ ADDED TO - mainscreen.html
         <td th:text="${tempPart.maximum}">1</td>
 
 •  Modify the sample inventory to include the maximum and minimum fields.\
-ADDED TO -Part.java
+ADDED TO - Part.java
 
-    Lines 31-33
+    Lines 35-37
         @Min(value = 0, message = "Inventory must be greater than 0")
         int minimum;
         int maximum;
 
-    Lines 108 - 112 Setters and Getters for maximum and minimum
+    Lines 116 - 120 Setters and Getters for maximum and minimum
         public void setMinimum(int minimum) {this.minimum = minimum;}
         public int getMinimum() {return this.minimum;}
     
         public void setMaximum(int maximum) {this.maximum = maximum;}
         public int getMaximum() {return this.maximum;}
 
-    Lines 47,48 Added default values to minimum and maximum
+    Lines 51,52 Added default values to minimum and maximum
         this.minimum = 0;
         this.maximum = 100;
-    Lines 56,57
+    Lines 60,61
         this.minimum = 0;
         this.maximum = 100;
 ADDED TO - InhousePart.java
@@ -271,7 +271,7 @@ CHANGED - application.properties
 •  Modify the code to enforce that the inventory is between or at the minimum and maximum value.
 ADDED TO - Part.java
 
-    Lines 92-102
+    Lines 96-106
         /* function isInvVal is called by save function before saving part changes. 
         (See InhousePartServiceImpl.java and OutsourcedPartServiceImpl.java)
         if value is higher/lower than set boundary the inv variable is set to the limit.
@@ -287,7 +287,7 @@ ADDED TO - Part.java
 H.  Add validation for between or at the maximum and minimum fields. The validation must include the following:\
 ADDED TO - Part.java
     
-    Lines 19,20
+    Lines 21,22
         @ValidPartInvMax
         @ValidPartInvMin
 •  Display error messages for low inventory when adding and updating parts if the inventory is less than the minimum number of parts.\
@@ -440,4 +440,17 @@ ADDED TO - PartTest.java
         assertEquals(maximum, partOut.getMaximum());
     }
 
-J.  Remove the class files for any unused validators in order to clean your code.
+J.  Remove the class files for any unused validators in order to clean your code.\
+All Validators and Use Cases
+
+    ValidDeletePart.java (DeletePartValidator.java) - Used in Part.java
+
+    ValidEnufParts.java (EnufPartsValidator.java) - Used in Product.java
+
+    ValisPartInvMax.java (PartInvMaxValidator.java) - Used in Part.java
+
+    ValidPartInvMin.java (PartInvMinValidator.java) - Used in Part.java
+
+    ValidProductPrice.java (PriceProductValidator.java) - Used in Product.java
+
+All 5 existing validators are being used, no validators were removed. 
