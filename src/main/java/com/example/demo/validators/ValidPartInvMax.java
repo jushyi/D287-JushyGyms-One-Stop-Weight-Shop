@@ -13,12 +13,11 @@ import java.lang.annotation.Target;
  *
  *
  */
-@Constraint(validatedBy = {EnufPartsValidator.class})
+@Constraint(validatedBy = {PartInvMaxValidator.class})
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ValidEnufParts {
-    String message() default "Cannot create product, parts used would fall below the minimum threshold!";
-    Class<?> [] groups() default {};
-    Class<? extends Payload> [] payload() default {};
-
+public @interface ValidPartInvMax {
+    String message() default "Inventory cannot exceed maximum required parts";
+    Class[] groups() default {};
+    Class [] payload() default {};
 }
