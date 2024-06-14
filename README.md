@@ -53,7 +53,7 @@ CREATED - about.html
 
 ADDED TO  - mainscreen.html
 
-    Line 89     <a th:href="@{/about}" class="btn btn-primary btn-sm mb-3">About us</a>
+    Line 90     <a th:href="@{/about}" class="btn btn-primary btn-sm mb-3">About us</a>
 
 ADDED TO - MainScreenControllerr.java
 
@@ -124,16 +124,80 @@ ADDED TO - BootStrapData.java
         }
 
 
-F.  Add a “Buy Now” button to your product list. Your “Buy Now” button must meet each of the following parameters:
-•  The “Buy Now” button must be next to the buttons that update and delete products.
-•  The button should decrement the inventory of that product by one. It should not affect the inventory of any of the associated parts.
+F.  Add a “Buy Now” button to your product list. Your “Buy Now” button must meet each of the following parameters:\
+•  The “Buy Now” button must be next to the buttons that update and delete products.\
+•  The button should decrement the inventory of that product by one. It should not affect the inventory of any of the associated parts.\
 •  Display a message that indicates the success or failure of a purchase.
 
+ADDED TO - mainscreen.html
+    
+    Line 85 <a th:href="@{/buyproduct(productID=${tempProduct.id})}" class="btn btn-primary btn-sm mb-3">Buy Now</a>
+
+CREATED - confirmationbuyproduct.html
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Product Order Confirmation Page</title>
+    </head>
+    <body>
+    <h1>Congratulations! Your order has been processed. </h1>
+    <a href="http://localhost:8080/" class="btn btn-primary btn-sm mb-3"> Back to Main Screen </a>
+    </body>
+    </html>
+
+CREATED - confirmationerrorbuyproduct.html
+
+    <<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Product Order Error Page</title>
+    </head>
+    <body>
+    <h1>Uh oh! There was an error processing your purchase.</h1>
+    <a href="http://localhost:8080/" class="btn btn-primary btn-sm mb-3"> Back to Main Screen </a>
+    </body>
+    </html>
+
+ADDED TO - Product.java
+
+    Lines 108-117
+    //used by buyProduct function. Checks inventory to see if there is at least one product before decrementing.
+    public boolean buyProduct() {
+        if (this.inv >= 1) {
+            this.inv--;
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+ADDED TO - AddProductController.java
+
+    Lines 176-189
+    @GetMapping("/buyproduct")
+    public String buyproduct(@RequestParam("productID") int theID, Model theModel){
+        ProductService productService = context.getBean(ProductServiceImpl.class);
+        Product product2=productService.findById(theID);
+
+        boolean purchaseConfirmation = product2.buyProduct();
+        if (purchaseConfirmation) {
+            productService.save(product2);
+            return "confirmationbuyproduct";
+        }
+        else {
+            return "confirmationerrorbuyproduct";
+        }
+    }
+
 G.  Modify the parts to track maximum and minimum inventory by doing the following:
-•  Add additional fields to the part entity for maximum and minimum inventory.
-•  Modify the sample inventory to include the maximum and minimum fields.
-•  Add to the InhousePartForm and OutsourcedPartForm forms additional text inputs for the inventory so the user can set the maximum and minimum values.
-•  Rename the file the persistent storage is saved to.
+•  Add additional fields to the part entity for maximum and minimum inventory.\
+•  Modify the sample inventory to include the maximum and minimum fields.\
+•  Add to the InhousePartForm and OutsourcedPartForm forms additional text inputs for the inventory so the user can set the maximum and minimum values.\
+•  Rename the file the persistent storage is saved to.\
 •  Modify the code to enforce that the inventory is between or at the minimum and maximum value.
 
 H.  Add validation for between or at the maximum and minimum fields. The validation must include the following:

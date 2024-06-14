@@ -104,4 +104,15 @@ public class Product implements Serializable {
     public int hashCode() {
         return (int) (id ^ (id >>> 32));
     }
+
+    //used by buyProduct function. Checks inventory to see if there is at least one product before decrementing.
+    public boolean buyProduct() {
+        if (this.inv >= 1) {
+            this.inv--;
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }
