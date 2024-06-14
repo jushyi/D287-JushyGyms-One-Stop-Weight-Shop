@@ -28,6 +28,9 @@ public abstract class Part implements Serializable {
     double price;
     @Min(value = 0, message = "Inventory value must be positive")
     int inv;
+    @Min(value = 0, message = "Inventory must be greater than 0")
+    int minimum;
+    int maximum;
 
     @ManyToMany
     @JoinTable(name="product_part", joinColumns = @JoinColumn(name="part_id"),
@@ -41,6 +44,8 @@ public abstract class Part implements Serializable {
         this.name = name;
         this.price = price;
         this.inv = inv;
+        this.minimum = 0;
+        this.maximum = 100;
     }
 
     public Part(long id, String name, double price, int inv) {
@@ -48,6 +53,8 @@ public abstract class Part implements Serializable {
         this.name = name;
         this.price = price;
         this.inv = inv;
+        this.minimum = 0;
+        this.maximum = 100;
     }
 
     public long getId() {
@@ -82,6 +89,18 @@ public abstract class Part implements Serializable {
         this.inv = inv;
     }
 
+    /* function isInvVal is called by save function before saving part changes.
+    (See InhousePartServiceImpl.java and OutsourcedPartServiceImpl.java)
+    if value is higher/lower than set boundary the inv variable is set to the limit.
+     */
+    public void isInvVal() {
+        if (this.inv < this.minimum) {
+            this.inv = this.minimum;
+        } else if (this.inv > this.maximum ) {
+            this.inv = this.maximum;
+        }
+    }
+
     public Set<Product> getProducts() {
         return products;
     }
@@ -89,6 +108,12 @@ public abstract class Part implements Serializable {
     public void setProducts(Set<Product> products) {
         this.products = products;
     }
+
+    public void setMinimum(int minimum) {this.minimum = minimum;}
+    public int getMinimum() {return this.minimum;}
+
+    public void setMaximum(int maximum) {this.maximum = maximum;}
+    public int getMaximum() {return this.maximum;}
 
     public String toString(){
         return this.name;
