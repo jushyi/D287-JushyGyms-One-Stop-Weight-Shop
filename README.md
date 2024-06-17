@@ -443,7 +443,7 @@ ADDED TO - PartTest.java
 J.  Remove the class files for any unused validators in order to clean your code.\
 All Validators and Use Cases
 
-    ValidDeletePart.java (DeletePartValidator.java) - Used in Part.java
+    ValidDeletePart.java (DeletePartValidator.java) - No Usages
 
     ValidEnufParts.java (EnufPartsValidator.java) - Used in Product.java
 
@@ -453,4 +453,7 @@ All Validators and Use Cases
 
     ValidProductPrice.java (PriceProductValidator.java) - Used in Product.java
 
-All 5 existing validators are being used, no validators were removed. 
+UPDATED 6/16/24
+4 existing validators are being used, 1 validator was removed. 
+    
+    DeletePartValidator.java class file was removed.
